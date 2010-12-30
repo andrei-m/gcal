@@ -1,0 +1,4 @@
+h1. gcal
+
+A Windows Sidebar gadget for displaying the day's Google Calendar events.
+
