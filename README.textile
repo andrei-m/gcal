@@ -2,3 +2,17 @@ h1. gcal
 
 A Windows Sidebar gadget for displaying the day's Google Calendar events.
 
+h2. Installation
+
+This gadget uses Google Calendar's "magic cookie":http://code.google.com/apis/calendar/data/2.0/developers_guide_protocol.html#AuthMagicCookie authentication. In order to set it up, you must provide a key from your Google Calendar account.
+
+ *# Log in to Google Calendar; Navigate to *Settings->Calendar Settings*.
+ *# Click the *Calendars* tab and select the calendar you wish to track.
+ *# At the bottom of the screen under *Private Address*, click *XML*. You are presented with a URI.
+ *# In *js/settings.js*, set *this.email* to your Google account e-mail address.
+ *# Set *this.key* equal to the long key string between *private-* and */basic* in the URI.
+ *# Deploy the gadget to your Sidebar folder specified in *build.bat*
+
+h2. License
+
+See LICENSE for terms.

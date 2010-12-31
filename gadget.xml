@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<gadget>
+  <name>gcal</name>  
+  <version>0.1.0.0</version>
+  <author name="Andrei Mackenzie">
+    <info url="http://www.andreimackenzie.com" />
+    <logo src="img/icon.png" />
+  </author>
+  <copyright>&#169; Andrei Mackenzie.</copyright>
+  <description>A Gadget displaying Google Calendar entries for today.</description>
+  <icons>
+    <icon height="48" width="48" src="img/icon.png" />
+  </icons>
+  <hosts>
+    <host name="sidebar">
+      <base type="HTML" apiVersion="1.0.0" src="gcal.html" />
+      <permissions>Full</permissions>
+      <platform minPlatformVersion="1.0" />
+      <defaultImage src="img/icon.png" />
+    </host>
+  </hosts>
+</gadget>

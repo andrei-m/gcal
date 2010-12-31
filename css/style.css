@@ -1,0 +1,26 @@
+body {
+  width:145px;
+  height:250px;
+}
+
+table#schedule {
+  width:145px;  
+  margin:8px;  
+}
+
+tbody#entries td {
+  width:70px;
+  font-size:0.7em;
+}
+
+#background {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:-999;  
+}
+
+div#gadgetContent {
+  height:238px;
+  overflow:hidden;
+}
