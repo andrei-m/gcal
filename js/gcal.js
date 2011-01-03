@@ -70,7 +70,7 @@ function handleFeed(myResultsFeedRoot){
   } 
 }
 
-var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dev"]
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 // Set the table header to the given date
 function updateHeader(date){
