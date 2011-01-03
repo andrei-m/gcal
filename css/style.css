@@ -8,6 +8,10 @@ table#schedule {
   margin:8px;  
 }
 
+th#header {
+  border-bottom: solid 1px black;
+}
+
 tbody#entries td {
   width:70px;
   font-size:0.7em;
