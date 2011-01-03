@@ -1,9 +1,20 @@
-﻿google.load("gdata", "1");
-google.setOnLoadCallback(getCalFeed); //get the initial calendar on-load
+﻿var dayStart = getDayStart(); // Midnight on the current day
+var dayEnd = getDayEnd(); // 23:59:59:999 on the current day
+
+google.load("gdata", "1");
+google.setOnLoadCallback(function(){
+  getCalFeed(dayStart, dayEnd);
+  updateHeader(dayStart);
+}); //get the initial calendar on-load
 
 //Set up a timed service to update the calendar every 15 minutes
-$(document).ready(function(){
-  $(document).everyTime("900s", getCalFeed);
+$(document).ready(function(){  
+  $(document).everyTime("900s", function(){
+    dayStart = getDayStart();
+    dayEnd = getDayEnd();
+    getCalFeed(dayStart, dayEnd);
+    updateHeader(dayStart);
+  });
 });
 
 var settings = new Settings(); //from settings.js
@@ -17,14 +28,14 @@ function setupService() {
 }
 
 // Retrieve the private feed using the magic cookie URL
-function getCalFeed() {
+function getCalFeed(dayStart, dayEnd) {
   if (service == null){
     setupService();
   }
   
   var query = new google.gdata.calendar.CalendarEventQuery(feedUrl);
-  var startDateMin = new google.gdata.DateTime(getDayStart());
-  var startDateMax = new google.gdata.DateTime(getDayEnd());
+  var startDateMin = new google.gdata.DateTime(dayStart);
+  var startDateMax = new google.gdata.DateTime(dayEnd);
     
   //Query all of today's events, sorted by start time  
   query.setMinimumStartTime(startDateMin);
@@ -44,9 +55,7 @@ function handleFeed(myResultsFeedRoot){
   
   if (events.length > 0){
     var rowContent = "";
-    var tbody = $("table#schedule > tbody:last");
-    var dayEnd = getDayEnd();
-    var dayStart = getDayStart();
+    var tbody = $("table#schedule > tbody:last");    
       
     //Append a row for each event
     for (var i = 0; i < events.length; i++){
@@ -59,6 +68,14 @@ function handleFeed(myResultsFeedRoot){
       tbody.append(rowContent);
     }
   } 
+}
+
+var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dev"]
+
+// Set the table header to the given date
+function updateHeader(date){
+  var displayDate = date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear();
+  $("th#header").text(displayDate);
 }
 
 // Remove all but the first row in the schedule table
