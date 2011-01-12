@@ -1,5 +1,6 @@
 ﻿var dayStart = getDayStart(); // Midnight on the current day
 var dayEnd = getDayEnd(); // 23:59:59:999 on the current day
+var DAY_DURATION = 86400000; //number of milliseconds in a day
 
 google.load("gdata", "1");
 google.setOnLoadCallback(function(){
@@ -104,9 +105,12 @@ function getDayEnd(){
 }
 
 // Returns a display string based on how the given start/end dates relate to beginning/end of day
-function formatDisplay(start, end, dayStart, dayEnd){
+function formatDisplay(start, end, dayStart, dayEnd){  
   if (start.getTime() >= dayStart.getTime() && end.getTime() <= dayEnd.getTime()){
     return formatTime(start) + " - " + formatTime(end);
+  // For events lasting exactly one day, just display the date
+  } else if(end.getTime() - start.getTime() == DAY_DURATION){  
+    return formatDate(start);
   } else if (start.getTime() < dayStart.getTime() && end.getTime() <= dayEnd.getTime()){
     return "... - " + formatTime(end);  
   } else if (start.getTime() >= dayStart.getTime() && end.getTime() > dayEnd.getTime()){
@@ -121,6 +125,11 @@ function formatTime(date){
   // Pad the given number with a leading 0 if it is one digit long
   function pad(n){return n<10 ? '0'+n : n}
   return pad(date.getHours()) + ":" + pad(date.getMinutes());
+}
+
+// Given a Date, format it for table display
+function formatDate(date){
+  return date.getDate() + " " + months[date.getMonth()]
 }
 
 // Output an alert for the given error
