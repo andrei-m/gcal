@@ -16,3 +16,8 @@ This gadget uses Google Calendar's "magic cookie":http://code.google.com/apis/ca
 h2. License
 
 See LICENSE for terms.
+
+h2. Bugs
+
+* All-day events for the next day appear on the current day's calendar. The strange thing is that the Android Google Calendar widget behaves the same way.
+* Events occasionally appear out of order. I can recreate this for reoccurring events that happen every Tuesday: one from 11:45AM-1:25PM, the other from 2:00PM to 5:00PM.
