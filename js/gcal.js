@@ -52,7 +52,7 @@ function handleFeed(myResultsFeedRoot){
   resetTable();
   
   var events = myResultsFeedRoot.feed.getEntries();
-  result = ""
+  result = ""  
   
   if (events.length > 0){
     var rowContent = "";
@@ -60,13 +60,20 @@ function handleFeed(myResultsFeedRoot){
       
     //Append a row for each event
     for (var i = 0; i < events.length; i++){
+      var status = events[i].getEventStatus();
+      var isCancelled = typeof status != 'undefined' && status.value == google.gdata.EventStatus.VALUE_CANCELED;
       var times = events[i].getTimes()[0];
-      var startTime = times.getStartTime().getDate();
-      var endTime = times.getEndTime().getDate();
-      var displayTime = formatDisplay(startTime, endTime, dayStart, dayEnd);
+      var displayTime;      
       
-      rowContent = "<tr><td>" + displayTime + "</td><td>" + events[i].getTitle().getText() + "</td></tr>";
-      tbody.append(rowContent);
+      // If instances of reoccuring events are cancelled, their times are undefined
+      // Cancelled events have
+      if (typeof times != 'undefined' && !isCancelled){
+        var startTime = times.getStartTime().getDate();
+        var endTime = times.getEndTime().getDate();
+        displayTime = formatDisplay(startTime, endTime, dayStart, dayEnd);
+        rowContent = "<tr><td>" + displayTime + "</td><td>" + events[i].getTitle().getText() + "</td></tr>";
+        tbody.append(rowContent);
+      }      
     }
   } 
 }
